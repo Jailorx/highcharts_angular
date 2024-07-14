@@ -1,0 +1,40 @@
+<div>
+
+  @switch(selectedChart){
+  @case ('gauge'){
+  <app-gauge-chart />
+  }
+  @case ('column'){
+  <app-column-chart [dataRange]="selectedDataRange" />
+  }
+  @case ('area'){
+  <app-area-chart [dataRange]="selectedDataRange" />
+  }
+  @case('pie'){
+  <app-pie-chart />
+  }
+  @default {
+  <app-line-chart [dataRange]="selectedDataRange" />
+  }
+  }
+
+  <div>
+    <mat-form-field>
+
+      <mat-select [(value)]="selectedChart">
+        @for (chart of charts; track chart) {
+        <mat-option [value]="chart.value">{{chart.viewValue}}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select [(value)]="selectedDataRange" [disabled]="selectedChart === 'pie' || selectedChart === 'gauge'">
+        @for(range of dataRanges;track range){
+        <mat-option [value]="range.value">{{range.viewValue}}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+</div>
